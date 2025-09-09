@@ -74,7 +74,7 @@
       transform: translateX(-50%) rotate(-6deg);
     }
 
-    /* ===== Header fixo minimal (translúcido) ===== */
+    /* ===== Header ===== */
     .header{
       position: sticky; top: 0; z-index: 40;
       background: rgba(8,12,20,.6);
@@ -98,41 +98,24 @@
       height: 42px; width: auto; object-fit: contain; display: block;
       filter: drop-shadow(0 6px 18px rgba(0,0,0,.35));
     }
-    .nav{
-      display: flex; gap: 6px; align-items: center;
-    }
+    .nav{ display: flex; gap: 6px; align-items: center; }
     .nav a{
-      text-decoration: none;
-      color: var(--ink);
-      font-weight: 700;
-      letter-spacing: .2px;
-      font-size: var(--r-sm);
-      padding: 10px 12px;
-      border-radius: 10px;
+      text-decoration: none; color: var(--ink); font-weight: 700; letter-spacing: .2px;
+      font-size: var(--r-sm); padding: 10px 12px; border-radius: 10px;
       transition: background var(--duration) ease, transform var(--duration) ease;
     }
     .nav a:hover{ background: var(--chip); transform: translateY(-1px); }
-
     .ghost{
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,.04);
-      padding: 10px 14px;
-      border-radius: 12px;
-      font-weight: 800; font-size: var(--r-sm);
-      text-decoration: none; color: var(--ink);
-      transition: transform var(--duration) ease, background var(--duration) ease, border-color var(--duration) ease;
+      border: 1px solid var(--line); background: rgba(255,255,255,.04);
+      padding: 10px 14px; border-radius: 12px; font-weight: 800; font-size: var(--r-sm);
+      text-decoration: none; color: var(--ink); transition: transform var(--duration) ease, background var(--duration) ease, border-color var(--duration) ease;
       box-shadow: inset 0 1px rgba(255,255,255,.06);
     }
     .ghost:hover{ transform: translateY(-1px); background: rgba(255,255,255,.08); border-color: var(--soft-line); }
 
-    /* Menu mobile */
     .menu-toggle{ display:none; }
-    .burger{
-      display:none; width:40px; height:40px;
-      border:1px solid var(--line); border-radius:12px;
-      align-items:center; justify-content:center; cursor:pointer;
-      background: rgba(255,255,255,.04);
-    }
+    .burger{ display:none; width:40px; height:40px; border:1px solid var(--line); border-radius:12px;
+      align-items:center; justify-content:center; cursor:pointer; background: rgba(255,255,255,.04); }
     .burger span, .burger::before, .burger::after{
       content:""; display:block; width:18px; height:2px; background: var(--ink); border-radius:2px; transition: transform .25s ease, opacity .25s ease;
     }
@@ -141,13 +124,8 @@
     .menu-toggle:checked + label .burger span{ opacity:0; }
     .menu-toggle:checked + label .burger::before{ transform: rotate(45deg); }
     .menu-toggle:checked + label .burger::after{ transform: rotate(-45deg); }
-
-    .nav-mobile{
-      display:none; border-top:1px solid var(--line); background: rgba(8,12,20,.7); backdrop-filter: blur(8px);
-    }
-    .nav-mobile a{
-      display:block; padding:14px 16px; color: var(--ink); text-decoration:none; border-bottom:1px solid var(--line);
-    }
+    .nav-mobile{ display:none; border-top:1px solid var(--line); background: rgba(8,12,20,.7); backdrop-filter: blur(8px); }
+    .nav-mobile a{ display:block; padding:14px 16px; color: var(--ink); text-decoration:none; border-bottom:1px solid var(--line); }
     .menu-toggle:checked ~ .nav-mobile{ display:block; }
 
     /* ===== Hero ===== */
@@ -157,54 +135,57 @@
       border-bottom: 1px solid var(--line);
       overflow: clip;
     }
-    /* Camada de imagem à direita com opacidade */
+    /* imagem do ateliê à direita com opacidade */
     .hero::before{
       content: "";
-      position: absolute;
-      inset: 0;
+      position: absolute; inset: 0;
       background-image: url('Gemini_Generated_Image_ikilmvikilmvikil.jpeg');
       background-repeat: no-repeat;
-      background-position: right center;          /* imagem na lateral direita */
-      background-size: min(52vw, 640px) auto;    /* controla o tamanho responsivo */
-      opacity: .25;                               /* opacidade suave */
+      background-position: right center;
+      background-size: min(52vw, 640px) auto;
+      opacity: .25;
       pointer-events: none;
-      mix-blend-mode: screen;                     /* integra com o azul de fundo */
+      mix-blend-mode: screen;
     }
-    /* brilho em faixa no rodapé da seção */
+    /* brilho em faixa */
     .hero::after{
       content:""; position:absolute; inset:auto 0 0 0; height: 160px;
       background: linear-gradient(180deg, rgba(120,160,255,.10), rgba(120,160,255,0));
       filter: blur(20px);
       pointer-events: none;
     }
-    .container{
-      width: min(100% - 32px, var(--maxw)); margin-inline:auto;
-      position: relative; z-index: 1; /* garante texto acima da imagem */
+    .container{ width: min(100% - 32px, var(--maxw)); margin-inline:auto; position: relative; z-index: 1; }
+
+    /* selo pequeno (logos Sicoob + Rede Soma) */
+    .partner-mark{
+      position: absolute; top: 18px; right: 18px; z-index: 2;
+      background: rgba(255,255,255,.06);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 8px 10px;
+      box-shadow: var(--shadow-sm);
+      backdrop-filter: blur(6px);
     }
+    .partner-mark img{
+      display:block; height: 36px; width: auto; object-fit: contain; opacity: .92;
+    }
+
     .eyebrow{
       display:inline-flex; align-items:center; gap:8px;
       font-size: 12px; letter-spacing: .34px; text-transform: uppercase;
       color: var(--muted);
       background: rgba(255,255,255,.06); border: 1px solid var(--line);
-      border-radius: 999px; padding: 6px 10px;
-      box-shadow: inset 0 1px rgba(255,255,255,.06);
+      border-radius: 999px; padding: 6px 10px; box-shadow: inset 0 1px rgba(255,255,255,.06);
     }
     .hero h1{
-      margin: 16px 0 14px;
-      font-size: var(--r-xxl);
-      line-height: 1.04;
-      letter-spacing: -0.02em;
-      font-weight: 800;
-      text-shadow: 0 6px 24px rgba(0,0,0,.35);
-      max-width: 22ch;
+      margin: 16px 0 14px; font-size: var(--r-xxl); line-height: 1.04; letter-spacing: -0.02em; font-weight: 800;
+      text-shadow: 0 6px 24px rgba(0,0,0,.35); max-width: 22ch;
     }
     .lead{ font-size: var(--r-md); color: var(--muted); max-width: 70ch; }
-
     .actions{ display:flex; gap:10px; flex-wrap:wrap; margin-top: 22px; }
     .btn{
       display:inline-flex; align-items:center; justify-content:center; gap:10px;
-      padding: 14px 18px;
-      border-radius: 14px;
+      padding: 14px 18px; border-radius: 14px;
       background: var(--btn); color: var(--btn-ink); text-decoration:none;
       font-weight: 800; font-size: var(--r-sm);
       border: 1px solid rgba(255,255,255,.24);
@@ -212,11 +193,7 @@
       box-shadow: 0 10px 30px rgba(0,0,0,.35), inset 0 1px rgba(255,255,255,.6);
     }
     .btn:hover{ transform: translateY(-1px); box-shadow: var(--shadow-md); filter: saturate(105%); }
-    .btn-ghost{
-      background: transparent; color: var(--ink);
-      border: 1px solid var(--line);
-      box-shadow: inset 0 1px rgba(255,255,255,.06);
-    }
+    .btn-ghost{ background: transparent; color: var(--ink); border: 1px solid var(--line); box-shadow: inset 0 1px rgba(255,255,255,.06); }
     .btn-ghost:hover{ background: rgba(255,255,255,.06); }
 
     /* ===== Seções comuns ===== */
@@ -227,73 +204,38 @@
     }
     .section p{ color: var(--muted); font-size: var(--r-md); }
 
-    /* Sobre (2 colunas) */
-    .cols-2{
-      display:grid; gap: clamp(18px, 4vw, 36px);
-      grid-template-columns: 1.1fr .9fr;
-      align-items:start;
-    }
-    .panel{
-      background: rgba(255,255,255,.04);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: var(--pad);
-      box-shadow: var(--shadow-sm);
-      backdrop-filter: blur(6px);
-    }
+    /* Sobre */
+    .cols-2{ display:grid; gap: clamp(18px, 4vw, 36px); grid-template-columns: 1.1fr .9fr; align-items:start; }
+    .panel{ background: rgba(255,255,255,.04); border: 1px solid var(--line); border-radius: var(--radius); padding: var(--pad); box-shadow: var(--shadow-sm); backdrop-filter: blur(6px); }
 
-    /* Cronograma (cards/timeline) */
-    .grid{
-      display:grid; gap: 14px; grid-template-columns: repeat(3, 1fr);
-    }
+    /* Cronograma */
+    .grid{ display:grid; gap: 14px; grid-template-columns: repeat(3, 1fr); }
     .card{
-      border: 1px solid var(--line); border-radius: 14px; padding: 16px;
-      background: rgba(255,255,255,.03);
+      border: 1px solid var(--line); border-radius: 14px; padding: 16px; background: rgba(255,255,255,.03);
       transition: transform var(--duration) ease, box-shadow var(--duration) ease, border-color var(--duration) ease, background var(--duration) ease;
-      box-shadow: var(--shadow-sm);
-      backdrop-filter: blur(4px);
+      box-shadow: var(--shadow-sm); backdrop-filter: blur(4px);
     }
     .card:hover{ transform: translateY(-2px); box-shadow: var(--shadow-md); border-color: var(--soft-line); background: rgba(255,255,255,.05); }
     .meta{ display:flex; flex-wrap:wrap; gap:8px; margin:10px 0 0; }
-    .badge{
-      font-size: 12px; color: var(--ink);
-      border:1px solid var(--line); border-radius:999px; padding: 4px 10px; background: rgba(255,255,255,.08);
-    }
-    .date{
-      font-weight: 800; letter-spacing: .2px; background: rgba(0,180,255,.12);
-      border-color: rgba(0,180,255,.25);
-    }
+    .badge{ font-size: 12px; color: var(--ink); border:1px solid var(--line); border-radius:999px; padding: 4px 10px; background: rgba(255,255,255,.08); }
+    .date{ font-weight: 800; letter-spacing: .2px; background: rgba(0,180,255,.12); border-color: rgba(0,180,255,.25); }
 
     /* CTA / Inscrição */
     .cta{
-      border: 1px solid var(--line); border-radius: var(--radius);
-      padding: clamp(22px, 3.5vw, 40px);
-      display:grid; gap: 18px;
-      background:
-        radial-gradient(80% 80% at 100% 0%, rgba(0,180,255,.10), rgba(0,180,255,0) 60%),
-        rgba(255,255,255,.03);
-      box-shadow: var(--shadow-sm);
-      backdrop-filter: blur(6px);
+      border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(22px, 3.5vw, 40px);
+      display:grid; gap: 18px; background: radial-gradient(80% 80% at 100% 0%, rgba(0,180,255,.10), rgba(0,180,255,0) 60%), rgba(255,255,255,.03);
+      box-shadow: var(--shadow-sm); backdrop-filter: blur(6px);
     }
 
     /* Rodapé — apenas Instagram no canto inferior direito */
-    footer{
-      border-top:1px solid var(--line);
-      padding: 14px 0;
-      background: transparent;
-      backdrop-filter: blur(2px);
-    }
-    .foot{
-      width:min(100% - 32px, var(--maxw)); margin-inline:auto;
-      display:flex; justify-content:flex-end; align-items:center;
-    }
+    footer{ border-top:1px solid var(--line); padding: 14px 0; background: transparent; backdrop-filter: blur(2px); }
+    .foot{ width:min(100% - 32px, var(--maxw)); margin-inline:auto; display:flex; justify-content:flex-end; align-items:center; }
     .chip{
       display:inline-flex; align-items:center; height:34px; padding: 0 12px;
       border-radius: 999px; text-decoration:none; color: var(--ink);
       border: 1px solid var(--line); background: rgba(255,255,255,.05);
       transition: background var(--duration) ease, transform var(--duration) ease, border-color var(--duration) ease;
-      font-weight: 700; font-size: 12px;
-      box-shadow: inset 0 1px rgba(255,255,255,.06);
+      font-weight: 700; font-size: 12px; box-shadow: inset 0 1px rgba(255,255,255,.06);
     }
     .chip:hover{ background: rgba(255,255,255,.08); transform: translateY(-1px); border-color: var(--soft-line); }
 
@@ -306,10 +248,11 @@
       .nav{ display:none; }
       .burger{ display:inline-flex; }
       .grid{ grid-template-columns: 1fr; }
-      .hero::before{ background-size: min(70vw, 520px) auto; } /* ajusta imagem no mobile */
+      .hero::before{ background-size: min(70vw, 520px) auto; }
+      .partner-mark{ top: 12px; right: 12px; }
+      .partner-mark img{ height: 30px; }
     }
 
-    /* Acessibilidade */
     :focus-visible{ outline: 3px solid rgba(120,160,255,.5); outline-offset: 2px; border-radius: 8px; }
     @media (prefers-reduced-motion: reduce){ *{ transition:none !important; } }
   </style>
@@ -322,7 +265,6 @@
   <header class="header" role="banner">
     <div class="wrap">
       <a href="#" class="brand" aria-label="Página inicial Empresariar">
-        <!-- Logo local (coloque EMPRESARIAR.png na mesma pasta do index.html) -->
         <img src="EMPRESARIAR.png" alt="Logo Empresariar">
       </a>
 
@@ -334,7 +276,6 @@
 
       <a class="ghost" href="https://docs.google.com/forms/d/e/1FAIpQLSe7qoCzg-xOP7TgBFDHI9clmgAD4bB6On6fiCSGkK-a_INYkg/viewform?fbclid=PAZXh0bgNhZW0CMTEAAacN7_wQUj0b7Aw-O8ymXB2yfGUkdBhpqaFoTLvWfMPMHWDMtIST1FXooql6ZQ_aem_xy-KrsDYs3X9EW2mrE0h8Q" target="_blank" rel="noopener">Inscreva-se</a>
 
-      <!-- Mobile -->
       <input id="menu-toggle" class="menu-toggle" type="checkbox" />
       <label for="menu-toggle" aria-label="Abrir menu">
         <div class="burger" aria-hidden="true"><span></span></div>
@@ -348,12 +289,21 @@
   </header>
 
   <main>
-    <!-- ===== HERO ===== -->
+    <!-- ===== HERO (atualizado com seu conteúdo) ===== -->
     <section class="hero" id="home" aria-labelledby="hero-title">
+      <!-- selo pequeno de realização -->
+      <div class="partner-mark" aria-hidden="true">
+        <img src="logosomasicoob.png" alt="Realização: Sicoob União dos Vales e Rede Soma">
+      </div>
+
       <div class="container">
-        <span class="eyebrow">Programa • Turma 2025/2026</span>
-        <h1 id="hero-title">Empresariar: a formação do novo empresário</h1>
-        <p class="lead">Uma trilha enxuta e prática para transformar ideias em negócios, do ajuste de proposta de valor à execução, com mentoria e materiais prontos para aplicar no dia a dia.</p>
+        <span class="eyebrow">Realização • Sicoob União dos Vales + Rede Soma</span>
+        <h1 id="hero-title">Empresariar: transforme sua ideia em negócio</h1>
+
+        <p class="lead">O Sicoob União dos Vales e a Rede Soma uniram forças para criar o Empresariar, um programa de capacitação 100% gratuito, feito para pessoas que querem dar os primeiros passos no mundo do empreendedorismo.</p>
+        <p class="lead">Com uma proposta prática e dinâmica, o curso conecta a teoria à realidade do mercado e ainda oferece a oportunidade de ter projetos financiados e apoiados.</p>
+        <p class="lead">Uma chance única de transformar ideias em negócios reais e construir o futuro com mais conhecimento e cooperação.</p>
+
         <div class="actions">
           <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLSe7qoCzg-xOP7TgBFDHI9clmgAD4bB6On6fiCSGkK-a_INYkg/viewform?fbclid=PAZXh0bgNhZW0CMTEAAacN7_wQUj0b7Aw-O8ymXB2yfGUkdBhpqaFoTLvWfMPMHWDMtIST1FXooql6ZQ_aem_xy-KrsDYs3X9EW2mrE0h8Q" target="_blank" rel="noopener">Quero me inscrever</a>
           <a class="btn btn-ghost" href="#cronograma">Ver cronograma</a>
@@ -390,95 +340,21 @@
         <h2 id="cronograma-title">Cronograma oficial</h2>
 
         <div class="grid" role="list">
-          <article class="card" role="listitem">
-            <h3 style="margin:0 0 6px; font-size:var(--r-lg);">Módulo 1 — Abertura</h3>
-            <p style="margin:0; color:var(--muted);">Boas-vindas, cronograma, linha de crédito e palestras motivacionais com empreendedores locais (quebra de crenças limitantes).</p>
-            <div class="meta"><span class="badge date">04/10/2025</span></div>
-          </article>
-
-          <article class="card" role="listitem">
-            <h3 style="margin:0 0 6px; font-size:var(--r-lg);">Módulo 2 — Consciência Social + Marketing e Vendas</h3>
-            <p style="margin:0; color:var(--muted);">Segmentação, 4Ps, marketing pessoal e precificação. Marketing digital e técnicas de vendas nas redes sociais. Vendas, negociação e persuasão, metas e encantamento/atendimento.</p>
-            <div class="meta"><span class="badge date">11/10/2025</span></div>
-          </article>
-
-          <article class="card" role="listitem">
-            <h3 style="margin:0 0 6px; font-size:var(--r-lg);">Módulo 2 — Socioemocional</h3>
-            <p style="margin:0; color:var(--muted);">Autoconhecimento, crenças limitantes, gestão de emoções e antecipação de reações.</p>
-            <div class="meta"><span class="badge date">18/10/2025</span></div>
-          </article>
-
-          <article class="card" role="listitem">
-            <h3 style="margin:0 0 6px; font-size:var(--r-lg);">Módulo 3 — Plano de Negócio</h3>
-            <p style="margin:0; color:var(--muted);">Estrutura do plano; missão, visão e valores; SWOT; PDCA; orçamento/financiamento; gestão financeira; operações (fluxograma); estratégia.</p>
-            <div class="meta"><span class="badge date">25/10/2025</span></div>
-          </article>
-
-          <article class="card" role="listitem">
-            <h3 style="margin:0 0 6px; font-size:var(--r-lg);">Módulo 3 — Criatividade & Inovação</h3>
-            <p style="margin:0; color:var(--muted);">Pensamento lateral, fontes de inovação, tecnologias emergentes e design thinking.</p>
-            <div class="meta"><span class="badge date">01/11/2025</span></div>
-          </article>
-
-          <article class="card" role="listitem">
-            <h3 style="margin:0 0 6px; font-size:var(--r-lg);">Módulo 4 — Estruturação do Plano</h3>
-            <p style="margin:0; color:var(--muted);">Mão na massa com os alunos.</p>
-            <div class="meta"><span class="badge date">08/11/2025</span></div>
-          </article>
-
-          <article class="card" role="listitem">
-            <h3 style="margin:0 0 6px; font-size:var(--r-lg);">Módulo 6 — Gestão de Pessoas e Liderança</h3>
-            <p style="margin:0; color:var(--muted);">Gestão de pessoas, recrutamento/seleção, liderança.</p>
-            <div class="meta"><span class="badge date">22/11/2025</span></div>
-          </article>
-
-          <article class="card" role="listitem">
-            <h3 style="margin:0 0 6px; font-size:var(--r-lg);">Módulo 6 — Comunicação</h3>
-            <p style="margin:0; color:var(--muted);">Oratória e Pitch.</p>
-            <div class="meta"><span class="badge date">22/11/2025</span></div>
-          </article>
-
-          <article class="card" role="listitem">
-            <h3 style="margin:0 0 6px; font-size:var(--r-lg);">Finanças e Contabilidade Gerencial</h3>
-            <p style="margin:0; color:var(--muted);">Fluxo de caixa, DRE e ponto de equilíbrio.</p>
-            <div class="meta"><span class="badge date">29/11/2025</span></div>
-          </article>
-
-          <article class="card" role="listitem">
-            <h3 style="margin:0 0 6px; font-size:var(--r-lg);">Finanças e Contabilidade</h3>
-            <p style="margin:0; color:var(--muted);">Constituição jurídica, enquadramento tributário, capital social e MEI.</p>
-            <div class="meta"><span class="badge date">06/12/2025</span></div>
-          </article>
-
-          <article class="card" role="listitem">
-            <h3 style="margin:0 0 6px; font-size:var(--r-lg);">Departamento Pessoal</h3>
-            <p style="margin:0; color:var(--muted);">Folha, pró-labore e noções de Direito do Trabalho.</p>
-            <div class="meta"><span class="badge date">06/12/2025</span></div>
-          </article>
-
-          <article class="card" role="listitem">
-            <h3 style="margin:0 0 6px; font-size:var(--r-lg);">Informática</h3>
-            <p style="margin:0; color:var(--muted);">Excel Básico.</p>
-            <div class="meta"><span class="badge date">13/12/2025</span></div>
-          </article>
-
-          <article class="card" role="listitem">
-            <h3 style="margin:0 0 6px; font-size:var(--r-lg);">Plano de Negócio — Análise e Construção</h3>
-            <p style="margin:0; color:var(--muted);">Refinamento e consolidação do plano.</p>
-            <div class="meta"><span class="badge date">20/12/2025</span></div>
-          </article>
-
-          <article class="card" role="listitem">
-            <h3 style="margin:0 0 6px; font-size:var(--r-lg);">Apresentação do Plano de Negócio</h3>
-            <p style="margin:0; color:var(--muted);">Banca e feedback.</p>
-            <div class="meta"><span class="badge date">10/01/2026</span></div>
-          </article>
-
-          <article class="card" role="listitem">
-            <h3 style="margin:0 0 6px; font-size:var(--r-lg);">Apresentações + Certificados</h3>
-            <p style="margin:0; color:var(--muted);">Apresentações finais e entrega de certificados.</p>
-            <div class="meta"><span class="badge date">17/01/2026</span></div>
-          </article>
+          <article class="card" role="listitem"><h3 style="margin:0 0 6px; font-size:var(--r-lg);">Módulo 1 — Abertura</h3><p style="margin:0; color:var(--muted);">Boas-vindas, cronograma, linha de crédito e palestras motivacionais com empreendedores locais (quebra de crenças limitantes).</p><div class="meta"><span class="badge date">04/10/2025</span></div></article>
+          <article class="card" role="listitem"><h3 style="margin:0 0 6px; font-size:var(--r-lg);">Módulo 2 — Consciência Social + Marketing e Vendas</h3><p style="margin:0; color:var(--muted);">Segmentação, 4Ps, marketing pessoal e precificação. Marketing digital e técnicas de vendas nas redes sociais. Vendas, negociação e persuasão, metas e encantamento/atendimento.</p><div class="meta"><span class="badge date">11/10/2025</span></div></article>
+          <article class="card" role="listitem"><h3 style="margin:0 0 6px; font-size:var(--r-lg);">Módulo 2 — Socioemocional</h3><p style="margin:0; color:var(--muted);">Autoconhecimento, crenças limitantes, gestão de emoções e antecipação de reações.</p><div class="meta"><span class="badge date">18/10/2025</span></div></article>
+          <article class="card" role="listitem"><h3 style="margin:0 0 6px; font-size:var(--r-lg);">Módulo 3 — Plano de Negócio</h3><p style="margin:0; color:var(--muted);">Estrutura do plano; missão, visão e valores; SWOT; PDCA; orçamento/financiamento; gestão financeira; operações (fluxograma); estratégia.</p><div class="meta"><span class="badge date">25/10/2025</span></div></article>
+          <article class="card" role="listitem"><h3 style="margin:0 0 6px; font-size:var(--r-lg);">Módulo 3 — Criatividade & Inovação</h3><p style="margin:0; color:var(--muted);">Pensamento lateral, fontes de inovação, tecnologias emergentes e design thinking.</p><div class="meta"><span class="badge date">01/11/2025</span></div></article>
+          <article class="card" role="listitem"><h3 style="margin:0 0 6px; font-size:var(--r-lg);">Módulo 4 — Estruturação do Plano</h3><p style="margin:0; color:var(--muted);">Mão na massa com os alunos.</p><div class="meta"><span class="badge date">08/11/2025</span></div></article>
+          <article class="card" role="listitem"><h3 style="margin:0 0 6px; font-size:var(--r-lg);">Módulo 6 — Gestão de Pessoas e Liderança</h3><p style="margin:0; color:var(--muted);">Gestão de pessoas, recrutamento/seleção, liderança.</p><div class="meta"><span class="badge date">22/11/2025</span></div></article>
+          <article class="card" role="listitem"><h3 style="margin:0 0 6px; font-size:var(--r-lg);">Módulo 6 — Comunicação</h3><p style="margin:0; color:var(--muted);">Oratória e Pitch.</p><div class="meta"><span class="badge date">22/11/2025</span></div></article>
+          <article class="card" role="listitem"><h3 style="margin:0 0 6px; font-size:var(--r-lg);">Finanças e Contabilidade Gerencial</h3><p style="margin:0; color:var(--muted);">Fluxo de caixa, DRE e ponto de equilíbrio.</p><div class="meta"><span class="badge date">29/11/2025</span></div></article>
+          <article class="card" role="listitem"><h3 style="margin:0 0 6px; font-size:var(--r-lg);">Finanças e Contabilidade</h3><p style="margin:0; color:var(--muted);">Constituição jurídica, enquadramento tributário, capital social e MEI.</p><div class="meta"><span class="badge date">06/12/2025</span></div></article>
+          <article class="card" role="listitem"><h3 style="margin:0 0 6px; font-size:var(--r-lg);">Departamento Pessoal</h3><p style="margin:0; color:var(--muted);">Folha, pró-labore e noções de Direito do Trabalho.</p><div class="meta"><span class="badge date">—</span></div></article>
+          <article class="card" role="listitem"><h3 style="margin:0 0 6px; font-size:var(--r-lg);">Informática</h3><p style="margin:0; color:var(--muted);">Excel Básico.</p><div class="meta"><span class="badge date">13/12/2025</span></div></article>
+          <article class="card" role="listitem"><h3 style="margin:0 0 6px; font-size:var(--r-lg);">Plano de Negócio — Análise e Construção</h3><p style="margin:0; color:var(--muted);">Refinamento e consolidação do plano.</p><div class="meta"><span class="badge date">20/12/2025</span></div></article>
+          <article class="card" role="listitem"><h3 style="margin:0 0 6px; font-size:var(--r-lg);">Apresentação do Plano de Negócio</h3><p style="margin:0; color:var(--muted);">Banca e feedback.</p><div class="meta"><span class="badge date">10/01/2026</span></div></article>
+          <article class="card" role="listitem"><h3 style="margin:0 0 6px; font-size:var(--r-lg);">Apresentações + Certificados</h3><p style="margin:0; color:var(--muted);">Apresentações finais e entrega de certificados.</p><div class="meta"><span class="badge date">17/01/2026</span></div></article>
         </div>
       </div>
     </section>
@@ -507,10 +383,5 @@
       <a class="chip" href="https://www.instagram.com/projeto.empresariar/" target="_blank" rel="noopener" aria-label="Instagram do Projeto Empresariar">Instagram</a>
     </div>
   </footer>
-
-  <script>
-    // (mantido caso queira usar o ano em algum lugar depois)
-    // document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
 </body>
 </html>
