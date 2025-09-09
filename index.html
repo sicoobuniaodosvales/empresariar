@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Empresariar — Curso</title>
+  <meta name="description" content="Empresariar — A formação do novo empresário." />
+
+  <!-- Fonte moderna -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      /* Paleta escura com azul + preto */
+      --bg: #070a10;
+      --bg-2: #0a1220;
+      --ink: #f5f7fb;
+      --muted: #aab3c2;
+      --line: rgba(255,255,255,.12);
+      --soft-line: rgba(255,255,255,.18);
+      --chip: rgba(255,255,255,.06);
+
+      /* Botões */
+      --btn: #e8ecf6;
+      --btn-ink: #0d1320;
+
+      /* Tipografia e ritmo */
+      --font: "Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system, Segoe UI, Inter, Roboto, "Helvetica Neue", Arial;
+      --r-xxl: clamp(40px, 6vw, 68px);
+      --r-xl: clamp(28px, 4vw, 40px);
+      --r-lg: clamp(20px, 2.6vw, 24px);
+      --r-md: clamp(16px, 1.6vw, 18px);
+      --r-sm: 14px;
+
+      /* Layout */
+      --maxw: 1140px;
+      --pad: clamp(20px, 2.5vw, 28px);
+      --radius: 16px;
+
+      /* Efeitos */
+      --shadow-sm: 0 8px 24px rgba(0,0,0,.25);
+      --shadow-md: 0 24px 60px rgba(0,0,0,.4);
+      --duration: .18s;
+    }
+
+    html, body{
+      background:
+        radial-gradient(1200px 480px at 10% -10%, rgba(70,120,255,.18), transparent 60%),
+        radial-gradient(1000px 420px at 90% -20%, rgba(0,180,255,.12), transparent 60%),
+        radial-gradient(900px 380px at 50% 110%, rgba(80,120,255,.10), transparent 60%),
+        linear-gradient(180deg, var(--bg-2), var(--bg));
+      color: var(--ink);
+      font-family: var(--font);
+      line-height: 1.55;
+      letter-spacing: .2px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* “Luzes glass” de fundo extras */
+    .glow{
+      position: fixed; inset: auto auto 10% -10%;
+      width: 60vw; height: 60vw; pointer-events: none; z-index: -1;
+      background: radial-gradient(50% 50% at 50% 50%, rgba(120,160,255,.08) 0%, rgba(120,160,255,0) 60%);
+      filter: blur(20px);
+      transform: rotate(8deg);
+    }
+    .glow.glow-top{
+      inset: -20% auto auto 50%;
+      width: 50vw; height: 50vw;
+      background: radial-gradient(50% 50% at 50% 50%, rgba(0,180,255,.08) 0%, rgba(0,180,255,0) 60%);
+      transform: translateX(-50%) rotate(-6deg);
+    }
+
+    /* ===== Header fixo minimal (translúcido) ===== */
+    .header{
+      position: sticky; top: 0; z-index: 40;
+      background: rgba(8,12,20,.6);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: saturate(140%) blur(10px);
+    }
+    .wrap{
+      width: min(100% - 32px, var(--maxw));
+      margin-inline: auto;
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      align-items: center;
+      gap: 12px;
+      height: 76px;
+    }
+    .brand{
+      display: inline-flex; align-items: center; gap: 10px;
+      text-decoration: none; color: inherit;
+    }
+    .brand img{
+      height: 42px; width: auto; object-fit: contain; display: block;
+      filter: drop-shadow(0 6px 18px rgba(0,0,0,.35));
+    }
+    .nav{
+      display: flex; gap: 6px; align-items: center;
+    }
+    .nav a{
+      text-decoration: none;
+      color: var(--ink);
+      font-weight: 700;
+      letter-spacing: .2px;
+      font-size: var(--r-sm);
+      padding: 10px 12px;
+      border-radius: 10px;
+      transition: background var(--duration) ease, transform var(--duration) ease;
+    }
+    .nav a:hover{ background: var(--chip); transform: translateY(-1px); }
+
+    .ghost{
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-weight: 800; font-size: var(--r-sm);
+      text-decoration: none; color: var(--ink);
+      transition: transform var(--duration) ease, background var(--duration) ease, border-color var(--duration) ease;
+      box-shadow: inset 0 1px rgba(255,255,255,.06);
+    }
+    .ghost:hover{ transform: translateY(-1px); background: rgba(255,255,255,.08); border-color: var(--soft-line); }
+
+    /* Menu mobile */
+    .menu-toggle{ display:none; }
+    .burger{
+      display:none; width:40px; height:40px;
+      border:1px solid var(--line); border-radius:12px;
+      align-items:center; justify-content:center; cursor:pointer;
+      background: rgba(255,255,255,.04);
+    }
+    .burger span, .burger::before, .burger::after{
+      content:""; display:block; width:18px; height:2px; background: var(--ink); border-radius:2px; transition: transform .25s ease, opacity .25s ease;
+    }
+    .burger::before{ transform: translateY(-6px); }
+    .burger::after{ transform: translateY(6px); }
+    .menu-toggle:checked + label .burger span{ opacity:0; }
+    .menu-toggle:checked + label .burger::before{ transform: rotate(45deg); }
+    .menu-toggle:checked + label .burger::after{ transform: rotate(-45deg); }
+
+    .nav-mobile{
+      display:none; border-top:1px solid var(--line); background: rgba(8,12,20,.7); backdrop-filter: blur(8px);
+    }
+    .nav-mobile a{
+      display:block; padding:14px 16px; color: var(--ink); text-decoration:none; border-bottom:1px solid var(--line);
+    }
+    .menu-toggle:checked ~ .nav-mobile{ display:block; }
+
+    /* ===== Hero ===== */
+    .hero{
+      position: relative;
+      padding: clamp(72px, 14vw, 160px) 0 72px;
+      border-bottom: 1px solid var(--line);
+      overflow: clip;
+    }
+    /* Camada de imagem à direita com opacidade */
+    .hero::before{
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: url('Gemini_Generated_Image_ikilmvikilmvikil.jpeg');
+      background-repeat: no-repeat;
+      background-position: right center;          /* imagem na lateral direita */
+      background-size: min(52vw, 640px) auto;    /* controla o tamanho responsivo */
+      opacity: .25;                               /* opacidade suave */
+      pointer-events: none;
+      mix-blend-mode: screen;                     /* integra com o azul de fundo */
+    }
+    /* brilho em faixa no rodapé da seção */
+    .hero::after{
+      content:""; position:absolute; inset:auto 0 0 0; height: 160px;
+      background: linear-gradient(180deg, rgba(120,160,255,.10), rgba(120,160,255,0));
+      filter: blur(20px);
+      pointer-events: none;
+    }
+    .container{
+      width: min(100% - 32px, var(--maxw)); margin-inline:auto;
+      position: relative; z-index: 1; /* garante texto acima da imagem */
+    }
+    .eyebrow{
+      display:inline-flex; align-items:center; gap:8px;
+      font-size: 12px; letter-spacing: .34px; text-transform: uppercase;
+      color: var(--muted);
+      background: rgba(255,255,255,.06); border: 1px solid var(--line);
+      border-radius: 999px; padding: 6px 10px;
+      box-shadow: inset 0 1px rgba(255,255,255,.06);
+    }
+    .hero h1{
+      margin: 16px 0 14px;
+      font-size: var(--r-xxl);
+      line-height: 1.04;
+      letter-spacing: -0.02em;
+      font-weight: 800;
+      text-shadow: 0 6px 24px rgba(0,0,0,.35);
+      max-width: 22ch;
+    }
+    .lead{ font-size: var(--r-md); color: var(--muted); max-width: 70ch; }
+
+    .actions{ display:flex; gap:10px; flex-wrap:wrap; margin-top: 22px; }
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      padding: 14px 18px;
+      border-radius: 14px;
+      background: var(--btn); color: var(--btn-ink); text-decoration:none;
+      font-weight: 800; font-size: var(--r-sm);
+      border: 1px solid rgba(255,255,255,.24);
+      transition: transform var(--duration) ease, box-shadow var(--duration) ease, background var(--duration) ease, color var(--duration) ease, filter var(--duration) ease;
+      box-shadow: 0 10px 30px rgba(0,0,0,.35), inset 0 1px rgba(255,255,255,.6);
+    }
+    .btn:hover{ transform: translateY(-1px); box-shadow: var(--shadow-md); filter: saturate(105%); }
+    .btn-ghost{
+      background: transparent; color: var(--ink);
+      border: 1px solid var(--line);
+      box-shadow: inset 0 1px rgba(255,255,255,.06);
+    }
+    .btn-ghost:hover{ background: rgba(255,255,255,.06); }
+
+    /* ===== Seções comuns ===== */
+    .section{ padding: clamp(56px, 8vw, 104px) 0; }
+    .section h2{
+      font-size: var(--r-xl); line-height: 1.1; letter-spacing: -.02em; font-weight: 800; margin: 8px 0 12px;
+      text-shadow: 0 4px 18px rgba(0,0,0,.35);
+    }
+    .section p{ color: var(--muted); font-size: var(--r-md); }
+
+    /* Sobre (2 colunas) */
+    .cols-2{
+      display:grid; gap: clamp(18px, 4vw, 36px);
+      grid-template-columns: 1.1fr .9fr;
+      align-items:start;
+    }
+    .panel{
+      background: rgba(255,255,255,.04);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: var(--pad);
+      box-shadow: var(--shadow-sm);
+      backdrop-filter: blur(6px);
+    }
+
+    /* Cronograma (cards/timeline) */
+    .grid{
+      display:grid; gap: 14px; grid-template-columns: repeat(3, 1fr);
+    }
+    .card{
+      border: 1px solid var(--line); border-radius: 14px; padding: 16px;
+      background: rgba(255,255,255,.03);
+      transition: transform var(--duration) ease, box-shadow var(--duration) ease, border-color var(--duration) ease, background var(--duration) ease;
+      box-shadow: var(--shadow-sm);
+      backdrop-filter: blur(4px);
+    }
+    .card:hover{ transform: translateY(-2px); box-shadow: var(--shadow-md); border-color: var(--soft-line); background: rgba(255,255,255,.05); }
+    .meta{ display:flex; flex-wrap:wrap; gap:8px; margin:10px 0 0; }
+    .badge{
+      font-size: 12px; color: var(--ink);
+      border:1px solid var(--line); border-radius:999px; padding: 4px 10px; background: rgba(255,255,255,.08);
+    }
+    .date{
+      font-weight: 800; letter-spacing: .2px; background: rgba(0,180,255,.12);
+      border-color: rgba(0,180,255,.25);
+    }
+
+    /* CTA / Inscrição */
+    .cta{
+      border: 1px solid var(--line); border-radius: var(--radius);
+      padding: clamp(22px, 3.5vw, 40px);
+      display:grid; gap: 18px;
+      background:
+        radial-gradient(80% 80% at 100% 0%, rgba(0,180,255,.10), rgba(0,180,255,0) 60%),
+        rgba(255,255,255,.03);
+      box-shadow: var(--shadow-sm);
+      backdrop-filter: blur(6px);
+    }
+
+    /* Rodapé — apenas Instagram no canto inferior direito */
+    footer{
+      border-top:1px solid var(--line);
+      padding: 14px 0;
+      background: transparent;
+      backdrop-filter: blur(2px);
+    }
+    .foot{
+      width:min(100% - 32px, var(--maxw)); margin-inline:auto;
+      display:flex; justify-content:flex-end; align-items:center;
+    }
+    .chip{
+      display:inline-flex; align-items:center; height:34px; padding: 0 12px;
+      border-radius: 999px; text-decoration:none; color: var(--ink);
+      border: 1px solid var(--line); background: rgba(255,255,255,.05);
+      transition: background var(--duration) ease, transform var(--duration) ease, border-color var(--duration) ease;
+      font-weight: 700; font-size: 12px;
+      box-shadow: inset 0 1px rgba(255,255,255,.06);
+    }
+    .chip:hover{ background: rgba(255,255,255,.08); transform: translateY(-1px); border-color: var(--soft-line); }
+
+    /* Responsividade */
+    @media (max-width: 1024px){
+      .cols-2{ grid-template-columns: 1fr; }
+      .grid{ grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px){
+      .nav{ display:none; }
+      .burger{ display:inline-flex; }
+      .grid{ grid-template-columns: 1fr; }
+      .hero::before{ background-size: min(70vw, 520px) auto; } /* ajusta imagem no mobile */
+    }
+
+    /* Acessibilidade */
+    :focus-visible{ outline: 3px solid rgba(120,160,255,.5); outline-offset: 2px; border-radius: 8px; }
+    @media (prefers-reduced-motion: reduce){ *{ transition:none !important; } }
+  </style>
+</head>
+<body>
+  <div class="glow"></div>
+  <div class="glow glow-top"></div>
+
+  <!-- ===== HEADER ===== -->
+  <header class="header" role="banner">
+    <div class="wrap">
+      <a href="#" class="brand" aria-label="Página inicial Empresariar">
+        <!-- Logo local (coloque EMPRESARIAR.png na mesma pasta do index.html) -->
+        <img src="EMPRESARIAR.png" alt="Logo Empresariar">
+      </a>
+
+      <nav class="nav" role="navigation" aria-label="Menu principal">
+        <a href="#sobre">Sobre o Curso</a>
+        <a href="#cronograma">Cronograma</a>
+        <a href="#inscricao">Inscrição</a>
+      </nav>
+
+      <a class="ghost" href="https://docs.google.com/forms/d/e/1FAIpQLSe7qoCzg-xOP7TgBFDHI9clmgAD4bB6On6fiCSGkK-a_INYkg/viewform?fbclid=PAZXh0bgNhZW0CMTEAAacN7_wQUj0b7Aw-O8ymXB2yfGUkdBhpqaFoTLvWfMPMHWDMtIST1FXooql6ZQ_aem_xy-KrsDYs3X9EW2mrE0h8Q" target="_blank" rel="noopener">Inscreva-se</a>
+
+      <!-- Mobile -->
+      <input id="menu-toggle" class="menu-toggle" type="checkbox" />
+      <label for="menu-toggle" aria-label="Abrir menu">
+        <div class="burger" aria-hidden="true"><span></span></div>
+      </label>
+    </div>
+    <nav class="nav-mobile" role="navigation" aria-label="Menu mobile">
+      <a href="#sobre" onclick="document.getElementById('menu-toggle').checked=false">Sobre o Curso</a>
+      <a href="#cronograma" onclick="document.getElementById('menu-toggle').checked=false">Cronograma</a>
+      <a href="#inscricao" onclick="document.getElementById('menu-toggle').checked=false">Inscrição</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- ===== HERO ===== -->
+    <section class="hero" id="home" aria-labelledby="hero-title">
+      <div class="container">
+        <span class="eyebrow">Programa • Turma 2025/2026</span>
+        <h1 id="hero-title">Empresariar: a formação do novo empresário</h1>
+        <p class="lead">Uma trilha enxuta e prática para transformar ideias em negócios — do ajuste de proposta de valor à execução, com mentoria e materiais prontos para aplicar no dia a dia.</p>
+        <div class="actions">
+          <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLSe7qoCzg-xOP7TgBFDHI9clmgAD4bB6On6fiCSGkK-a_INYkg/viewform?fbclid=PAZXh0bgNhZW0CMTEAAacN7_wQUj0b7Aw-O8ymXB2yfGUkdBhpqaFoTLvWfMPMHWDMtIST1FXooql6ZQ_aem_xy-KrsDYs3X9EW2mrE0h8Q" target="_blank" rel="noopener">Quero me inscrever</a>
+          <a class="btn btn-ghost" href="#cronograma">Ver cronograma</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SOBRE ===== -->
+    <section class="section" id="sobre" aria-labelledby="sobre-title">
+      <div class="container cols-2">
+        <div>
+          <span class="eyebrow">Sobre o curso</span>
+          <h2 id="sobre-title">Aprenda o essencial, aplicando no seu negócio</h2>
+          <p>O <strong>Empresariar</strong> é uma capacitação objetiva, com foco em prática. Cada encontro entrega um “como fazer” simples: validar cliente, estruturar oferta, precificar, comunicar e rodar operação de forma leve.</p>
+          <p style="margin-top:10px;">Ao final, você sai com um plano enxuto de ação, um MVP validado e próximos passos claros para ganhar tração.</p>
+        </div>
+        <aside class="panel" aria-label="Destaques do curso">
+          <h3 style="margin:0 0 6px; font-size:var(--r-lg);">O que você leva</h3>
+          <ul style="margin:6px 0 0; padding-left: 18px; color:var(--muted); font-size:var(--r-md);">
+            <li>Mentorias convidadas, objetivas e aplicáveis</li>
+            <li>Modelos prontos (pitch, funil, orçamento, roadmap)</li>
+            <li>Feedback curto ao final de cada módulo</li>
+            <li>Rede com empreendedores da turma</li>
+          </ul>
+          <p style="margin:12px 0 0; color:var(--muted); font-size:var(--r-sm);"><em>Observação: datas e conteúdos podem ter ajustes até o início da turma.</em></p>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ===== CRONOGRAMA ===== -->
+    <section class="section" id="cronograma" aria-labelledby="cronograma-title">
+      <div class="container">
+        <span class="eyebrow">Estrutura</span>
+        <h2 id="cronograma-title">Cronograma oficial</h2>
+
+        <div class="grid" role="list">
+          <article class="card" role="listitem">
+            <h3 style="margin:0 0 6px; font-size:var(--r-lg);">Módulo 1 — Abertura</h3>
+            <p style="margin:0; color:var(--muted);">Boas-vindas, cronograma, linha de crédito e palestras motivacionais com empreendedores locais (quebra de crenças limitantes).</p>
+            <div class="meta"><span class="badge date">04/10/2025</span></div>
+          </article>
+
+          <article class="card" role="listitem">
+            <h3 style="margin:0 0 6px; font-size:var(--r-lg);">Módulo 2 — Consciência Social + Marketing e Vendas</h3>
+            <p style="margin:0; color:var(--muted);">Segmentação, 4Ps, marketing pessoal e precificação. Marketing digital e técnicas de vendas nas redes sociais. Vendas, negociação e persuasão, metas e encantamento/atendimento.</p>
+            <div class="meta"><span class="badge date">11/10/2025</span></div>
+          </article>
+
+          <article class="card" role="listitem">
+            <h3 style="margin:0 0 6px; font-size:var(--r-lg);">Módulo 2 — Socioemocional</h3>
+            <p style="margin:0; color:var(--muted);">Autoconhecimento, crenças limitantes, gestão de emoções e antecipação de reações.</p>
+            <div class="meta"><span class="badge date">18/10/2025</span></div>
+          </article>
+
+          <article class="card" role="listitem">
+            <h3 style="margin:0 0 6px; font-size:var(--r-lg);">Módulo 3 — Plano de Negócio</h3>
+            <p style="margin:0; color:var(--muted);">Estrutura do plano; missão, visão e valores; SWOT; PDCA; orçamento/financiamento; gestão financeira; operações (fluxograma); estratégia.</p>
+            <div class="meta"><span class="badge date">25/10/2025</span></div>
+          </article>
+
+          <article class="card" role="listitem">
+            <h3 style="margin:0 0 6px; font-size:var(--r-lg);">Módulo 3 — Criatividade & Inovação</h3>
+            <p style="margin:0; color:var(--muted);">Pensamento lateral, fontes de inovação, tecnologias emergentes e design thinking.</p>
+            <div class="meta"><span class="badge date">01/11/2025</span></div>
+          </article>
+
+          <article class="card" role="listitem">
+            <h3 style="margin:0 0 6px; font-size:var(--r-lg);">Módulo 4 — Estruturação do Plano</h3>
+            <p style="margin:0; color:var(--muted);">Mão na massa com os alunos.</p>
+            <div class="meta"><span class="badge date">08/11/2025</span></div>
+          </article>
+
+          <article class="card" role="listitem">
+            <h3 style="margin:0 0 6px; font-size:var(--r-lg);">Módulo 6 — Gestão de Pessoas e Liderança</h3>
+            <p style="margin:0; color:var(--muted);">Gestão de pessoas, recrutamento/seleção, liderança.</p>
+            <div class="meta"><span class="badge date">22/11/2025</span></div>
+          </article>
+
+          <article class="card" role="listitem">
+            <h3 style="margin:0 0 6px; font-size:var(--r-lg);">Módulo 6 — Comunicação</h3>
+            <p style="margin:0; color:var(--muted);">Oratória e Pitch.</p>
+            <div class="meta"><span class="badge date">22/11/2025</span></div>
+          </article>
+
+          <article class="card" role="listitem">
+            <h3 style="margin:0 0 6px; font-size:var(--r-lg);">Finanças e Contabilidade Gerencial</h3>
+            <p style="margin:0; color:var(--muted);">Fluxo de caixa, DRE e ponto de equilíbrio.</p>
+            <div class="meta"><span class="badge date">29/11/2025</span></div>
+          </article>
+
+          <article class="card" role="listitem">
+            <h3 style="margin:0 0 6px; font-size:var(--r-lg);">Finanças e Contabilidade</h3>
+            <p style="margin:0; color:var(--muted);">Constituição jurídica, enquadramento tributário, capital social e MEI.</p>
+            <div class="meta"><span class="badge date">06/12/2025</span></div>
+          </article>
+
+          <article class="card" role="listitem">
+            <h3 style="margin:0 0 6px; font-size:var(--r-lg);">Departamento Pessoal</h3>
+            <p style="margin:0; color:var(--muted);">Folha, pró-labore e noções de Direito do Trabalho.</p>
+            <div class="meta"><span class="badge date">06/12/2025</span></div>
+          </article>
+
+          <article class="card" role="listitem">
+            <h3 style="margin:0 0 6px; font-size:var(--r-lg);">Informática</h3>
+            <p style="margin:0; color:var(--muted);">Excel Básico.</p>
+            <div class="meta"><span class="badge date">13/12/2025</span></div>
+          </article>
+
+          <article class="card" role="listitem">
+            <h3 style="margin:0 0 6px; font-size:var(--r-lg);">Plano de Negócio — Análise e Construção</h3>
+            <p style="margin:0; color:var(--muted);">Refinamento e consolidação do plano.</p>
+            <div class="meta"><span class="badge date">20/12/2025</span></div>
+          </article>
+
+          <article class="card" role="listitem">
+            <h3 style="margin:0 0 6px; font-size:var(--r-lg);">Apresentação do Plano de Negócio</h3>
+            <p style="margin:0; color:var(--muted);">Banca e feedback.</p>
+            <div class="meta"><span class="badge date">10/01/2026</span></div>
+          </article>
+
+          <article class="card" role="listitem">
+            <h3 style="margin:0 0 6px; font-size:var(--r-lg);">Apresentações + Certificados</h3>
+            <p style="margin:0; color:var(--muted);">Apresentações finais e entrega de certificados.</p>
+            <div class="meta"><span class="badge date">17/01/2026</span></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== INSCRIÇÃO ===== -->
+    <section class="section" id="inscricao" aria-labelledby="inscricao-title">
+      <div class="container">
+        <div class="cta">
+          <div>
+            <span class="eyebrow">Inscrições</span>
+            <h2 id="inscricao-title">Garanta sua vaga</h2>
+            <p>Vagas limitadas. Preencha o formulário para receber o calendário final e orientações.</p>
+          </div>
+          <div class="actions">
+            <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLSe7qoCzg-xOP7TgBFDHI9clmgAD4bB6On6fiCSGkK-a_INYkg/viewform?fbclid=PAZXh0bgNhZW0CMTEAAacN7_wQUj0b7Aw-O8ymXB2yfGUkdBhpqaFoTLvWfMPMHWDMtIST1FXooql6ZQ_aem_xy-KrsDYs3X9EW2mrE0h8Q" target="_blank" rel="noopener" aria-label="Ir para formulário de inscrição">Preencher formulário</a>
+            <a class="btn btn-ghost" href="#sobre">Saiba mais</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== RODAPÉ (apenas Instagram) ===== -->
+  <footer role="contentinfo">
+    <div class="foot">
+      <a class="chip" href="https://www.instagram.com/projeto.empresariar/" target="_blank" rel="noopener" aria-label="Instagram do Projeto Empresariar">Instagram</a>
+    </div>
+  </footer>
+
+  <script>
+    // (mantido caso queira usar o ano em algum lugar depois)
+    // document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
