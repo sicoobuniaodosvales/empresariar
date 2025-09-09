@@ -7,13 +7,13 @@
   <meta name="description" content="Empresariar — A formação do novo empresário." />
 
   <!-- Fonte moderna -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet" />
 
   <style>
     :root{
-      /* Paleta escura com azul + preto */
+      /* Paleta escura (mantida) */
       --bg: #070a10;
       --bg-2: #0a1220;
       --ink: #f5f7fb;
@@ -26,25 +26,26 @@
       --btn: #e8ecf6;
       --btn-ink: #0d1320;
 
-      /* Tipografia e ritmo */
-      --font: "Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system, Segoe UI, Inter, Roboto, "Helvetica Neue", Arial;
-      --r-xxl: clamp(40px, 6vw, 68px);
-      --r-xl: clamp(28px, 4vw, 40px);
-      --r-lg: clamp(20px, 2.6vw, 24px);
-      --r-md: clamp(16px, 1.6vw, 18px);
+      /* Tipografia e ritmo (ajustado) */
+      --font: "Manrope", ui-sans-serif, system-ui, -apple-system, Segoe UI, Inter, Roboto, "Helvetica Neue", Arial;
+      --r-xxl: clamp(36px, 6.2vw, 68px);
+      --r-xl: clamp(24px, 4vw, 40px);
+      --r-lg: clamp(18px, 2.6vw, 22px);
+      --r-md: clamp(15px, 1.6vw, 18px);
       --r-sm: 14px;
 
       /* Layout */
       --maxw: 1140px;
-      --pad: clamp(20px, 2.5vw, 28px);
+      --pad: clamp(18px, 2.5vw, 28px);
       --radius: 16px;
 
       /* Efeitos */
       --shadow-sm: 0 8px 24px rgba(0,0,0,.25);
-      --shadow-md: 0 24px 60px rgba(0,0,0,.4);
+      --shadow-md: 0 24px 60px rgba(0,0,0,.40);
       --duration: .18s;
     }
 
+    /* ===== Base ===== */
     html, body{
       background:
         radial-gradient(1200px 480px at 10% -10%, rgba(70,120,255,.18), transparent 60%),
@@ -53,69 +54,88 @@
         linear-gradient(180deg, var(--bg-2), var(--bg));
       color: var(--ink);
       font-family: var(--font);
-      line-height: 1.55;
+      line-height: 1.6;
       letter-spacing: .2px;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
     }
 
-    /* “Luzes glass” de fundo extras */
+    /* Textura de grãos (overlay sutil) */
+    body::after{
+      content:"";
+      position: fixed; inset: 0; pointer-events: none; z-index: 0;
+      opacity: .06; mix-blend-mode: soft-light;
+      background:
+        radial-gradient(rgba(255,255,255,.08) 0 1px, transparent 1px) 0 0 / 3px 3px,
+        radial-gradient(rgba(0,0,0,.2) 0 1px, transparent 1px) 1px 1px / 4px 4px;
+    }
+
+    /* Glows de fundo com parallax */
+    .glow, .glow-top{
+      position: fixed; z-index: 0; pointer-events: none; will-change: transform;
+      transform: translateZ(0); /* aceleração */
+    }
     .glow{
-      position: fixed; inset: auto auto 10% -10%;
-      width: 60vw; height: 60vw; pointer-events: none; z-index: -1;
+      inset: auto auto 8% -10%;
+      width: 60vw; height: 60vw;
       background: radial-gradient(50% 50% at 50% 50%, rgba(120,160,255,.08) 0%, rgba(120,160,255,0) 60%);
       filter: blur(20px);
-      transform: rotate(8deg);
     }
-    .glow.glow-top{
-      inset: -20% auto auto 50%;
+    .glow-top{
+      inset: -18% auto auto 52%;
       width: 50vw; height: 50vw;
       background: radial-gradient(50% 50% at 50% 50%, rgba(0,180,255,.08) 0%, rgba(0,180,255,0) 60%);
-      transform: translateX(-50%) rotate(-6deg);
+      transform: translateX(-50%);
+      filter: blur(18px);
     }
 
     /* ===== Header ===== */
     .header{
-      position: sticky; top: 0; z-index: 40;
-      background: rgba(8,12,20,.6);
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(8,12,20,.55);
       border-bottom: 1px solid var(--line);
       backdrop-filter: saturate(140%) blur(10px);
     }
     .wrap{
-      width: min(100% - 32px, var(--maxw));
+      width: min(100% - 28px, var(--maxw));
       margin-inline: auto;
       display: grid;
       grid-template-columns: 1fr auto auto;
       align-items: center;
-      gap: 12px;
-      height: 76px;
+      gap: 10px;
+      height: 72px;
     }
-    .brand{
-      display: inline-flex; align-items: center; gap: 10px;
-      text-decoration: none; color: inherit;
-    }
-    .brand img{
-      height: 42px; width: auto; object-fit: contain; display: block;
-      filter: drop-shadow(0 6px 18px rgba(0,0,0,.35));
-    }
+    .brand{ display: inline-flex; align-items: center; gap: 10px; text-decoration: none; color: inherit; }
+    .brand img{ height: 40px; width: auto; object-fit: contain; display: block; filter: drop-shadow(0 6px 18px rgba(0,0,0,.35)); }
     .nav{ display: flex; gap: 6px; align-items: center; }
     .nav a{
-      text-decoration: none; color: var(--ink); font-weight: 700; letter-spacing: .2px;
-      font-size: var(--r-sm); padding: 10px 12px; border-radius: 10px;
+      text-decoration: none; color: var(--ink);
+      font-weight: 700; font-size: var(--r-sm);
+      padding: 10px 12px; border-radius: 10px;
       transition: background var(--duration) ease, transform var(--duration) ease;
     }
     .nav a:hover{ background: var(--chip); transform: translateY(-1px); }
+
     .ghost{
-      border: 1px solid var(--line); background: rgba(255,255,255,.04);
-      padding: 10px 14px; border-radius: 12px; font-weight: 800; font-size: var(--r-sm);
-      text-decoration: none; color: var(--ink); transition: transform var(--duration) ease, background var(--duration) ease, border-color var(--duration) ease;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.06);
+      padding: 10px 14px; border-radius: 12px;
+      font-weight: 800; font-size: var(--r-sm);
+      text-decoration: none; color: var(--ink);
+      transition: transform var(--duration), background var(--duration), border-color var(--duration);
       box-shadow: inset 0 1px rgba(255,255,255,.06);
     }
-    .ghost:hover{ transform: translateY(-1px); background: rgba(255,255,255,.08); border-color: var(--soft-line); }
+    .ghost:hover{ transform: translateY(-1px); background: rgba(255,255,255,.09); border-color: var(--soft-line); }
 
-    .menu-toggle{ display:none; }
-    .burger{ display:none; width:40px; height:40px; border:1px solid var(--line); border-radius:12px;
-      align-items:center; justify-content:center; cursor:pointer; background: rgba(255,255,255,.04); }
+    /* Menu mobile melhorado (overlay) */
+    .menu-toggle{ display: none; }
+    .burger{
+      display:none; width:40px; height:40px;
+      border:1px solid var(--line); border-radius:12px;
+      align-items:center; justify-content:center; cursor:pointer;
+      background: rgba(255,255,255,.06);
+    }
     .burger span, .burger::before, .burger::after{
       content:""; display:block; width:18px; height:2px; background: var(--ink); border-radius:2px; transition: transform .25s ease, opacity .25s ease;
     }
@@ -124,84 +144,96 @@
     .menu-toggle:checked + label .burger span{ opacity:0; }
     .menu-toggle:checked + label .burger::before{ transform: rotate(45deg); }
     .menu-toggle:checked + label .burger::after{ transform: rotate(-45deg); }
-    .nav-mobile{ display:none; border-top:1px solid var(--line); background: rgba(8,12,20,.7); backdrop-filter: blur(8px); }
-    .nav-mobile a{ display:block; padding:14px 16px; color: var(--ink); text-decoration:none; border-bottom:1px solid var(--line); }
-    .menu-toggle:checked ~ .nav-mobile{ display:block; }
 
-    /* ===== Hero ===== */
+    .nav-overlay{
+      position: fixed; inset: 0; z-index: 60;
+      background: rgba(5,8,14,.75);
+      backdrop-filter: blur(10px);
+      display: none;
+    }
+    .menu-toggle:checked ~ .nav-overlay{ display: block; }
+    .nav-mobile{
+      position: fixed; inset: 0; z-index: 70;
+      display: none; place-content: center;
+    }
+    .menu-toggle:checked ~ .nav-mobile{ display: grid; }
+    .nav-mobile a{
+      display:block; margin: 10px 0; text-align:center;
+      font-size: 18px; font-weight: 800; letter-spacing: .3px;
+      color: var(--ink); text-decoration:none;
+      padding: 14px 18px; border:1px solid var(--line); border-radius: 14px;
+      background: rgba(255,255,255,.06);
+    }
+
+    /* ===== HERO ===== */
     .hero{
-      position: relative;
-      padding: clamp(72px, 14vw, 160px) 0 72px;
+      position: relative; z-index: 1;
+      padding: clamp(72px, 16vw, 168px) 0 72px;
       border-bottom: 1px solid var(--line);
       overflow: clip;
     }
-    /* imagem do ateliê à direita com opacidade */
-    .hero::before{
-      content: "";
-      position: absolute; inset: 0;
-      background-image: url('Gemini_Generated_Image_ikilmvikilmvikil.jpeg');
-      background-repeat: no-repeat;
-      background-position: right center;
-      background-size: min(52vw, 640px) auto;
-      opacity: .25;
-      pointer-events: none;
-      mix-blend-mode: screen;
-    }
-    /* brilho em faixa */
-    .hero::after{
-      content:""; position:absolute; inset:auto 0 0 0; height: 160px;
-      background: linear-gradient(180deg, rgba(120,160,255,.10), rgba(120,160,255,0));
-      filter: blur(20px);
-      pointer-events: none;
-    }
-    .container{ width: min(100% - 32px, var(--maxw)); margin-inline:auto; position: relative; z-index: 1; }
 
-    /* selo pequeno (logos Sicoob + Rede Soma) */
+    /* Imagem do ateliê em camada separada (parallax) */
+    .hero-media{
+      position: absolute; inset: 0; pointer-events: none; z-index: 0;
+    }
+    .hero-img{
+      position: absolute; right: 0; top: 50%;
+      width: min(52vw, 640px); aspect-ratio: 4 / 3;
+      transform: translateY(-50%); opacity: .28; mix-blend-mode: screen;
+      background: url('Gemini_Generated_Image_ikilmvikilmvikil.jpeg') right center / cover no-repeat;
+      filter: saturate(110%);
+      will-change: transform;
+    }
+    .hero-gradient{
+      position: absolute; inset: auto 0 0 0; height: 160px;
+      background: linear-gradient(180deg, rgba(120,160,255,.10), rgba(120,160,255,0));
+      filter: blur(18px);
+    }
+
+    .container{ width: min(100% - 28px, var(--maxw)); margin-inline:auto; position: relative; z-index: 1; }
+
+    /* Selo (dentro do hero, canto sup/dir em telas maiores; em mobile desce) */
     .partner-mark{
       position: absolute; top: 18px; right: 18px; z-index: 2;
       background: rgba(255,255,255,.06);
       border: 1px solid var(--line);
-      border-radius: 14px;
-      padding: 8px 10px;
-      box-shadow: var(--shadow-sm);
-      backdrop-filter: blur(6px);
+      border-radius: 14px; padding: 8px 10px;
+      box-shadow: var(--shadow-sm); backdrop-filter: blur(6px);
     }
-    .partner-mark img{
-      display:block; height: 36px; width: auto; object-fit: contain; opacity: .92;
-    }
+    .partner-mark img{ display:block; height: 44px; width:auto; object-fit: contain; opacity:.95; }
 
     .eyebrow{
       display:inline-flex; align-items:center; gap:8px;
-      font-size: 12px; letter-spacing: .34px; text-transform: uppercase;
+      font-size: 12px; letter-spacing: .36px; text-transform: uppercase;
       color: var(--muted);
       background: rgba(255,255,255,.06); border: 1px solid var(--line);
       border-radius: 999px; padding: 6px 10px; box-shadow: inset 0 1px rgba(255,255,255,.06);
     }
     .hero h1{
-      margin: 16px 0 14px; font-size: var(--r-xxl); line-height: 1.04; letter-spacing: -0.02em; font-weight: 800;
+      margin: 14px 0 10px; font-size: var(--r-xxl); line-height: 1.04; letter-spacing: -0.02em; font-weight: 800;
       text-shadow: 0 6px 24px rgba(0,0,0,.35); max-width: 22ch;
     }
     .lead{ font-size: var(--r-md); color: var(--muted); max-width: 70ch; }
-    .actions{ display:flex; gap:10px; flex-wrap:wrap; margin-top: 22px; }
+    .actions{ display:flex; gap:12px; flex-wrap:wrap; margin-top: 22px; }
     .btn{
       display:inline-flex; align-items:center; justify-content:center; gap:10px;
       padding: 14px 18px; border-radius: 14px;
       background: var(--btn); color: var(--btn-ink); text-decoration:none;
       font-weight: 800; font-size: var(--r-sm);
       border: 1px solid rgba(255,255,255,.24);
-      transition: transform var(--duration) ease, box-shadow var(--duration) ease, background var(--duration) ease, color var(--duration) ease, filter var(--duration) ease;
+      transition: transform var(--duration), box-shadow var(--duration), background var(--duration), color var(--duration), filter var(--duration);
       box-shadow: 0 10px 30px rgba(0,0,0,.35), inset 0 1px rgba(255,255,255,.6);
+      touch-action: manipulation;
     }
     .btn:hover{ transform: translateY(-1px); box-shadow: var(--shadow-md); filter: saturate(105%); }
+    .btn:active{ transform: translateY(0); }
     .btn-ghost{ background: transparent; color: var(--ink); border: 1px solid var(--line); box-shadow: inset 0 1px rgba(255,255,255,.06); }
     .btn-ghost:hover{ background: rgba(255,255,255,.06); }
 
     /* ===== Seções comuns ===== */
-    .section{ padding: clamp(56px, 8vw, 104px) 0; }
-    .section h2{
-      font-size: var(--r-xl); line-height: 1.1; letter-spacing: -.02em; font-weight: 800; margin: 8px 0 12px;
-      text-shadow: 0 4px 18px rgba(0,0,0,.35);
-    }
+    .section{ padding: clamp(52px, 8vw, 104px) 0; }
+    .section h2{ font-size: var(--r-xl); line-height: 1.1; letter-spacing: -.02em; font-weight: 800; margin: 8px 0 12px; text-shadow: 0 4px 18px rgba(0,0,0,.35); }
     .section p{ color: var(--muted); font-size: var(--r-md); }
 
     /* Sobre */
@@ -212,7 +244,7 @@
     .grid{ display:grid; gap: 14px; grid-template-columns: repeat(3, 1fr); }
     .card{
       border: 1px solid var(--line); border-radius: 14px; padding: 16px; background: rgba(255,255,255,.03);
-      transition: transform var(--duration) ease, box-shadow var(--duration) ease, border-color var(--duration) ease, background var(--duration) ease;
+      transition: transform var(--duration), box-shadow var(--duration), border-color var(--duration), background var(--duration);
       box-shadow: var(--shadow-sm); backdrop-filter: blur(4px);
     }
     .card:hover{ transform: translateY(-2px); box-shadow: var(--shadow-md); border-color: var(--soft-line); background: rgba(255,255,255,.05); }
@@ -229,37 +261,44 @@
 
     /* Rodapé — apenas Instagram no canto inferior direito */
     footer{ border-top:1px solid var(--line); padding: 14px 0; background: transparent; backdrop-filter: blur(2px); }
-    .foot{ width:min(100% - 32px, var(--maxw)); margin-inline:auto; display:flex; justify-content:flex-end; align-items:center; }
+    .foot{ width:min(100% - 28px, var(--maxw)); margin-inline:auto; display:flex; justify-content:flex-end; align-items:center; }
     .chip{
-      display:inline-flex; align-items:center; height:34px; padding: 0 12px;
+      display:inline-flex; align-items:center; height:36px; padding: 0 14px;
       border-radius: 999px; text-decoration:none; color: var(--ink);
       border: 1px solid var(--line); background: rgba(255,255,255,.05);
-      transition: background var(--duration) ease, transform var(--duration) ease, border-color var(--duration) ease;
-      font-weight: 700; font-size: 12px; box-shadow: inset 0 1px rgba(255,255,255,.06);
+      transition: background var(--duration), transform var(--duration), border-color var(--duration);
+      font-weight: 800; font-size: 13px; letter-spacing: .3px; box-shadow: inset 0 1px rgba(255,255,255,.06);
     }
     .chip:hover{ background: rgba(255,255,255,.08); transform: translateY(-1px); border-color: var(--soft-line); }
 
-    /* Responsividade */
-    @media (max-width: 1024px){
-      .cols-2{ grid-template-columns: 1fr; }
+    /* ===== Responsividade ===== */
+    @media (max-width: 1100px){
       .grid{ grid-template-columns: repeat(2, 1fr); }
+      .partner-mark{ top: 16px; right: 16px; }
+      .partner-mark img{ height: 40px; }
     }
-    @media (max-width: 768px){
-      .nav{ display:none; }
-      .burger{ display:inline-flex; }
+    @media (max-width: 820px){
+      .nav{ display:none; } .burger{ display:inline-flex; }
+      .cols-2{ grid-template-columns: 1fr; }
       .grid{ grid-template-columns: 1fr; }
-      .hero::before{ background-size: min(70vw, 520px) auto; }
-      .partner-mark{ top: 12px; right: 12px; }
-      .partner-mark img{ height: 30px; }
+      .hero{ padding: 78px 0 52px; }
+      .hero-img{ width: min(70vw, 520px); opacity: .32; top: 52%; }
+      .partner-mark{ position: static; margin-bottom: 10px; }
+      .container{ width: min(100% - 22px, var(--maxw)); }
+      .btn, .btn-ghost{ padding: 16px 18px; font-size: 15px; }
     }
 
+    /* Acessibilidade */
     :focus-visible{ outline: 3px solid rgba(120,160,255,.5); outline-offset: 2px; border-radius: 8px; }
-    @media (prefers-reduced-motion: reduce){ *{ transition:none !important; } }
+    @media (prefers-reduced-motion: reduce){
+      *{ transition:none !important; animation: none !important; }
+    }
   </style>
 </head>
 <body>
-  <div class="glow"></div>
-  <div class="glow glow-top"></div>
+  <!-- Camadas de glow (com parallax via JS) -->
+  <div class="glow" data-parallax data-speed="0.08"></div>
+  <div class="glow-top" data-parallax data-speed="0.12"></div>
 
   <!-- ===== HEADER ===== -->
   <header class="header" role="banner">
@@ -281,6 +320,9 @@
         <div class="burger" aria-hidden="true"><span></span></div>
       </label>
     </div>
+
+    <!-- overlay + navegação mobile -->
+    <div class="nav-overlay" onclick="document.getElementById('menu-toggle').checked=false"></div>
     <nav class="nav-mobile" role="navigation" aria-label="Menu mobile">
       <a href="#sobre" onclick="document.getElementById('menu-toggle').checked=false">Sobre o Curso</a>
       <a href="#cronograma" onclick="document.getElementById('menu-toggle').checked=false">Cronograma</a>
@@ -289,12 +331,16 @@
   </header>
 
   <main>
-    <!-- ===== HERO (atualizado com seu conteúdo) ===== -->
+    <!-- ===== HERO ===== -->
     <section class="hero" id="home" aria-labelledby="hero-title">
-      <!-- selo pequeno de realização -->
-      <div class="partner-mark" aria-hidden="true">
-        <img src="logosomasicoob.png" alt="Realização: Sicoob União dos Vales e Rede Soma">
+      <!-- mídia/parallax da seção -->
+      <div class="hero-media" aria-hidden="true">
+        <div class="hero-img" data-parallax data-speed="0.18"></div>
+        <div class="hero-gradient"></div>
       </div>
+
+      <!-- selo realização -->
+  
 
       <div class="container">
         <span class="eyebrow">Realização • Sicoob União dos Vales + Rede Soma</span>
@@ -383,5 +429,34 @@
       <a class="chip" href="https://www.instagram.com/projeto.empresariar/" target="_blank" rel="noopener" aria-label="Instagram do Projeto Empresariar">Instagram</a>
     </div>
   </footer>
+
+  <!-- Parallax suave e performático -->
+  <script>
+    (function(){
+      const layers = Array.from(document.querySelectorAll('[data-parallax]'));
+      if (!layers.length) return;
+
+      let ticking = false;
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      function onScroll(){
+        if (ticking || reduceMotion) return;
+        window.requestAnimationFrame(update);
+        ticking = true;
+      }
+
+      function update(){
+        const y = window.scrollY || window.pageYOffset;
+        for (const el of layers){
+          const speed = parseFloat(el.getAttribute('data-speed')) || 0.1;
+          el.style.transform = `translate3d(0, ${y * speed}px, 0)`;
+        }
+        ticking = false;
+      }
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+      update();
+    })();
+  </script>
 </body>
 </html>
